@@ -22,17 +22,13 @@ class LabelSample(Tk):
 
         #Encrypt =============================================================
         self.EncryptFrame = Frame(self, height= 720, width= 500, bg="#26323D")
-        self.EncryptFrame.place(relx = 0.03, rely = 0.55, anchor ='w')
+        self.EncryptFrame.place(relx = 0.03, rely = 0.4, anchor ='w')
         self.EncryptLabel = Label(self.EncryptFrame, text = "Encryption",  bg="#26323D", fg="#D3D7D8", font=('Arial', 18))
         self.EncryptLabel.grid(row=0, column=0, sticky="news")
         self.EncryptWordLabel = Label(self.EncryptFrame, text = "Word/s to Encrypt",  bg="#26323D", fg="#D3D7D8", font=('Arial', 14))
         self.EncryptWordLabel.grid(row=1, column=0, pady= 20, sticky="news")
         self.EncryptWordField = Text(self.EncryptFrame, bg="#2E3D4A", fg = "#D3D7D8", font=('Arial', 16), height=5, width= 45)
         self.EncryptWordField.grid(row=2, column=0, sticky="news")
-        self.EncryptKeyLabel = Label(self.EncryptFrame, text = "Key",  bg="#26323D", fg="#D3D7D8", font=('Arial', 14))
-        self.EncryptKeyLabel.grid(row=3, column=0, pady= 10, sticky="news")
-        self.EncryptKeyField = Text(self.EncryptFrame, bg="#2E3D4A", fg = "#D3D7D8", font=('Arial', 16), height=5, width= 45)
-        self.EncryptKeyField.grid(row=4, column=0, pady=5, sticky="news")
         self.EncryptedMessage = StringVar()
         self.EncryptedMessage.set("  Encrypted Message: ")
         self.EncryptedMessEntry = Entry(self.EncryptFrame, font=('Arial', 12), bd=0, state="readonly", textvariable=self.EncryptedMessage)
@@ -43,17 +39,13 @@ class LabelSample(Tk):
 
         #Decrypt =============================================================
         self.DecryptFrame = Frame(self, height= 720, width= 500, bg="#26323D")
-        self.DecryptFrame.place(relx = 0.969, rely = 0.55, anchor ='e')
+        self.DecryptFrame.place(relx = 0.969, rely = 0.4, anchor ='e')
         self.DecryptLabel = Label(self.DecryptFrame, text = "Decryption",  bg="#26323D", fg="#D3D7D8", font=('Arial', 18))
         self.DecryptLabel.grid(row=0, column=0, sticky="news")
         self.DecryptWordLabel = Label(self.DecryptFrame, text = "Encrypted Word",  bg="#26323D", fg="#D3D7D8", font=('Arial', 14))
         self.DecryptWordLabel.grid(row=1, column=0, pady= 20, sticky="news")
         self.DecryptWordField = Text(self.DecryptFrame, bg="#2E3D4A", fg = "#D3D7D8", font=('Arial', 16), height=5, width= 45)
         self.DecryptWordField.grid(row=2, column=0, sticky="news")
-        self.DecryptKeyLabel = Label(self.DecryptFrame, text = "Key",  bg="#26323D", fg="#D3D7D8", font=('Arial', 14))
-        self.DecryptKeyLabel.grid(row=3, column=0, pady= 10, sticky="news")
-        self.DecryptKeyField = Text(self.DecryptFrame, bg="#2E3D4A", fg = "#D3D7D8", font=('Arial', 16), height=5, width= 45)
-        self.DecryptKeyField.grid(row=4, column=0, pady=5, sticky="news")
         self.DecryptedMessage = StringVar()
         self.DecryptedMessage.set("  Decrypted Message: ")
         self.DecryptedMessEntry = Entry(self.DecryptFrame, font=('Arial', 12), bd=0, state="readonly", textvariable=self.DecryptedMessage)
@@ -62,8 +54,13 @@ class LabelSample(Tk):
         self.DecryptBtn.grid(row = 6, column= 0, pady=10)
         #=====================================================================
 
+        self.KeyLabel = Label(self, text = "Key",  bg="#26323D", fg="#D3D7D8", font=('Arial', 14))
+        self.KeyLabel.place(relx = 0.5, rely = 0.7, anchor ='s')
+        self.KeyField = Text(self, bg="#2E3D4A", fg = "#D3D7D8", font=('Arial', 16), height=5, width= 45)
+        self.KeyField.place(relx = 0.5, rely = 0.9, anchor ='s')
+
     def encrypt(self):
-        keyStorage = list(self.EncryptKeyField.get(1.0, "end-1c"))
+        keyStorage = list(self.KeyField.get(1.0, "end-1c"))
         wordStorage = list(self.EncryptWordField.get(1.0, "end-1c"))
         if len(keyStorage) != len(wordStorage):
             messagebox.showwarning("Warning", "Word and Key must have the\n same character length!")
@@ -88,7 +85,7 @@ class LabelSample(Tk):
 
 
     def decrypt(self):
-        keyStorage = list(self.DecryptKeyField.get(1.0, "end-1c"))
+        keyStorage = list(self.KeyField.get(1.0, "end-1c"))
         wordStorage = list(self.DecryptWordField.get(1.0, "end-1c"))
         keyNumbers = []
         for i in range(len(keyStorage)):
